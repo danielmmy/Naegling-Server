@@ -1,0 +1,766 @@
+#include "naegling-com.h"
+
+char file_path[MAX_FILE_PATH_SIZE];
+
+void bail(const char *on_what){
+	openlog("naegling_error.log",LOG_PID|LOG_CONS,LOG_USER);
+	syslog(LOG_INFO,"Error: %s\n",on_what);
+	closelog();
+}
+
+void naegling_log(const char *message){
+        openlog("naegling_naegling.log",LOG_PID|LOG_CONS,LOG_USER);
+        syslog(LOG_INFO,"Log: %s\n",message);
+        closelog();
+
+}
+
+void listen_for_remote_message(){
+
+	int retval;
+	int len_inet;
+	struct sockaddr_in addr_inet;
+	struct sockaddr_in addr_clnt;
+	int sock;
+	char dgram[5120];
+
+
+
+	/*creating socket address*/
+	memset(&addr_inet,0,sizeof addr_inet);
+	addr_inet.sin_family = AF_INET;
+	addr_inet.sin_port = htons(NAEGLING_SERVER_GUI_PORT);
+	addr_inet.sin_addr.s_addr =INADDR_ANY;
+	if ( addr_inet.sin_addr.s_addr == INADDR_NONE){
+		bail("bad address.");
+		return;
+	}
+	len_inet = sizeof addr_inet;
+
+	/*creating UDP socket*/
+	sock=socket(AF_INET,SOCK_DGRAM,0);
+	if (sock==-1){
+		bail("socket()");
+		return;
+	}
+	/*bindig address to socket*/
+	retval=bind(sock,(struct sockaddr *)&addr_inet,len_inet);
+	if (retval==-1){
+		bail("bind()");
+		return;
+	}
+
+	/*wait for message*/
+	for(;;){
+		int function_retval=-1;
+		len_inet=sizeof addr_clnt;
+		retval=recvfrom(sock,dgram,sizeof dgram,0,(struct sockaddr*)&addr_clnt,&len_inet);
+		if(retval<0)
+			bail("recvfrom(2)");
+		dgram[retval]='\0';
+		naegling_log(dgram);
+		char **message_fields;
+		int count=get_field_count(dgram);
+		message_fields=(char **)malloc(count*sizeof(char *));
+		int i;
+		for(i=0;i<count;i++)
+			message_fields[i]=(char *)malloc(256*(sizeof(char)));
+		get_message_fields(dgram,message_fields);
+		if(message_fields[0]!=NULL){
+			int option=-1;
+			char* ptr;
+			option=strtol(message_fields[0],&ptr,10);
+			if(option<=0 && ptr==message_fields[0])
+				bail("Invalid message format.");
+			else{
+				switch(option){
+					case START_NODE:
+						naegling_log("Trying to start node...");
+						function_retval=vm_start(message_fields[1],message_fields[2]);
+						if(function_retval==1)
+							naegling_log("Node successfully started.");
+						else
+							bail("Error starting node.");
+						break;
+					case STOP_NODE:
+						function_retval=vm_stop(message_fields[1],message_fields[2]);
+						break;
+					case CREATE_MASTER_NODE:
+						function_retval=create_master_vm(message_fields[1],message_fields[2],message_fields[3],message_fields[4],message_fields[5],message_fields[6], message_fields[7],message_fields[8],message_fields[9],message_fields[10],message_fields[11]);
+						break;
+					case CREATE_SLAVE_NODE:
+						function_retval=create_diskless_slave_vm(message_fields[1],message_fields[2],message_fields[3],message_fields[4],message_fields[5],message_fields[6], message_fields[7],message_fields[8]);
+						break;
+					case NODE_STATUS:
+						function_retval=vm_status(message_fields[1],message_fields[2]);
+						break;
+					case TEMPLATE_STATUS:
+						function_retval=template_exists(message_fields[1]);
+						break;
+					case START_MASTER_VIRTUAL_NODE:
+						function_retval=vm_start_master_virtual_node(message_fields[1],message_fields[2],message_fields[3],message_fields[4],message_fields[5]);
+						break;
+					case STOP_MASTER_VIRTUAL_NODE:
+						function_retval=vm_stop_master_virtual_node(message_fields[1],message_fields[2],message_fields[3]);
+						break;
+					case ADD_WORKING_NODE:
+						function_retval=add_working_node(message_fields[1],message_fields[2],message_fields[3],message_fields[4],message_fields[5]);
+						break;
+					case REMOVE_WORKING_NODE:
+						function_retval=remove_working_node(message_fields[1],message_fields[2],message_fields[3],message_fields[4]);
+						break;
+					case GET_CLUSTER_STATUS:
+						function_retval=get_cluster_status(message_fields[1]);
+						break;
+					case REQUEST_CLUSTER_IP:
+						function_retval=2;
+						char *ip=get_cluster_ip(message_fields[1]);
+						strcpy(dgram,ip);
+						free(ip);
+						break;
+					case REQUEST_TEMPLATE_TRANSFER:
+						if(FILE_TRANSFER_AVAILABLE){
+							FILE_TRANSFER_AVAILABLE=0;
+							function_retval=prepare_template_transfer(message_fields[1]);
+							if(!function_retval)
+                						insert_into_template_table(message_fields[1],file_path,message_fields[2]);
+							else{
+								FILE_TRANSFER_AVAILABLE=1;
+							}
+						}else{
+							function_retval=1;
+						}
+						break;
+					case REQUEST_JOB_TRANSFER:
+						if(FILE_TRANSFER_AVAILABLE){
+							FILE_TRANSFER_AVAILABLE=0;
+							function_retval=prepare_job_file_transfer(message_fields[1],message_fields[2],message_fields[3]);
+							if(function_retval){
+								FILE_TRANSFER_AVAILABLE=1;	
+							}
+						}else{
+							function_retval=1;
+						}
+						break;
+					case EXECUTE_JOB:
+						function_retval=run_job_script(message_fields[1],message_fields[2],message_fields[3]);
+						if(!function_retval)
+							insert_into_job_status_table(message_fields[2],message_fields[1],JOB_EXECUTING);
+						break;
+					case DOWNLOAD_JOB_FILE:
+						if(FILE_TRANSFER_AVAILABLE){
+							FILE_TRANSFER_AVAILABLE=0;	
+							function_retval=download_job_file(message_fields[1],message_fields[2],message_fields[3],addr_clnt);
+							if(function_retval){
+								FILE_TRANSFER_AVAILABLE=1;
+							}
+						}else{
+							function_retval=1;
+						}
+						break;
+					case DELETE_NODE:
+						function_retval=undefine_vm(message_fields[1],message_fields[2]);
+						break;
+					case EDIT_NODE:
+						function_retval=edit_vm(message_fields[1],message_fields[2],message_fields[3],message_fields[4],message_fields[5]);
+						break;
+					default:
+						bail("Invalid message format.");
+				}
+			}
+			char *ret_message=(char *)malloc(UDP_MESSAGE_MAX_SIZE*(sizeof(char)));
+			switch(function_retval){
+				case 0:
+					strcpy(ret_message,"0#");
+					break;
+				case 1:
+					strcpy(ret_message,"1#");
+					break;
+				case 2:/*send customized message*/
+					strcpy(ret_message,dgram);
+					break;
+				case -1:
+					strcpy(ret_message,"-1#");
+					break;
+				default:
+					strcpy(ret_message,"-1#");
+			}
+			retval=sendto(sock,ret_message,strlen(ret_message),0,(struct sockaddr*)&addr_clnt,len_inet);
+			if(retval<0)
+				bail("sendto(2)");
+			free(ret_message);
+		}else{
+			bail("Invalid message format.");
+		}
+		for(i=0;i<count;i++)
+                        free(message_fields[i]);
+		free(message_fields);
+	}
+	close(sock);
+}
+
+int get_field_count(char *message){
+	int count=0;
+	while(*message){
+		if(strchr(MESSAGE_DELIMITER,*message))
+			++count;
+		++message;
+	}
+	return ++count;
+}
+
+
+void get_message_fields(char *message,char **message_fields){
+	int i;
+	char *str;
+	char *rest;
+	str=strtok_r(message,MESSAGE_DELIMITER,&rest);
+	i=0;
+	while(str){
+		strcpy(message_fields[i++],str);
+		str=strtok_r(NULL,MESSAGE_DELIMITER,&rest);
+	}
+}
+
+
+
+
+int prepare_template_transfer(const char *file_name){
+        file_path[0]='\0';
+        strcpy(file_path,NAEGLING_TEMPLATES_DIRECTORY);
+        strcat(file_path,file_name);
+        remove(file_path);
+        pthread_t tid;
+        pthread_create(&tid,NULL,file_transfer,file_path);
+	return 0;
+}
+
+int prepare_job_file_transfer(const char *master_domain,const char *job_name,const char *file_name){
+	int retval=-1;
+
+	char *ip=get_ip_by_domain(master_domain);
+	char *message=(char *)malloc(sizeof(char)*UDP_MESSAGE_MAX_SIZE);
+	if(ip){
+		sprintf(message,"%d%s%s%s%s",REQUEST_JOB_TRANSFER,MESSAGE_DELIMITER,job_name,MESSAGE_DELIMITER,file_name);
+		retval=send_message_to_cluster(ip,message);
+		if(!retval){
+			pthread_t tid;
+			pthread_create(&tid,NULL,job_file_transfer,(void*)ip);
+		}
+		
+	}
+#if 0
+	int retval=-1;
+	
+
+
+	/*
+	 * Paths string setup
+	 */
+	char *job_directory_path=(char *)malloc(sizeof(char)*MAX_PATH_SIZE);
+
+
+	strcpy(job_directory_path,NAEGLING_JOBS_PATH);
+	strcat(job_directory_path,"/");
+	strcat(job_directory_path,master_domain);
+	strcpy(file_path,job_directory_path);
+	strcat(file_path,"/");
+	strcat(file_path,file_name);
+	/*
+         * End of paths string setup
+         */
+
+
+        /*
+         * Check if master node's jobs directory exists, if not create
+         */
+	struct stat status;
+        retval=stat(job_directory_path,&status);
+        if(retval==-1){
+                naegling_log("Creating naegling master node directory...");
+                retval=mkdir(job_directory_path,S_IRWXU|S_IRWXG|S_IROTH);
+                if(retval==-1){
+                        bail("Error creating naegling master node directory.");
+                }
+        }else{
+                naegling_log("Naegling jobs directory exists.");
+        }
+        /*
+         * End of directory creation
+         */
+
+	if(!retval){
+		remove(file_path);
+		pthread_t tid;
+	        pthread_create(&tid,NULL,file_transfer,file_path);
+	}
+
+	free(job_directory_path);
+#endif
+	return retval;
+
+}
+
+
+void* file_transfer(void* arg){
+        /* Defining Variables */
+        int sock;
+        int nsock;
+        int num;
+        int sin_size;
+        struct sockaddr_in addr_local; /* client addr */
+        struct sockaddr_in addr_remote; /* server addr */
+        char buff[TCP_MESSAGE_MAX_SIZE]; // Receiver buffer
+
+        /* Get the Socket file descriptor */
+        if((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1 ){
+                bail("[Image-Server] ERROR: Failed to obtain Socket Descriptor.");
+                return;
+        }else
+                naegling_log("[Image-Server] Obtaining socket descriptor successfully.");
+
+        /* Fill the client socket address struct */
+        addr_local.sin_family = AF_INET; // Protocol Family
+        addr_local.sin_port = htons(NAEGLING_FILE_TRANSFER_PORT); // Port number
+        addr_local.sin_addr.s_addr = INADDR_ANY; // AutoFill local address
+        bzero(&(addr_local.sin_zero), 8); // Flush the rest of struct
+
+        /* Bind a special Port */
+        if( bind(sock, (struct sockaddr*)&addr_local, sizeof(struct sockaddr)) == -1 ){
+                bail("[Image-Server] ERROR: Failed to bind Port.");
+                return;
+        }else
+                naegling_log("[Image-Server] Binded tcp port sucessfully.");
+
+        /* Listen remote connect/calling */
+        if(listen(sock,SOMAXCONN) == -1){
+                bail("[Image-Server] ERROR: Failed to listen Port.");
+                return;
+        }
+        else
+                naegling_log("[Image-Server] Listening the port successfully.");
+
+        int success = 0;
+        int block_sz=TCP_MESSAGE_MAX_SIZE;
+        while(success == 0 && block_sz==TCP_MESSAGE_MAX_SIZE){
+                sin_size = sizeof(struct sockaddr_in);
+
+                /* Wait a connection, and obtain a new socket file despriptor for single connection */
+                if ((nsock = accept(sock, (struct sockaddr *)&addr_remote, &sin_size)) == -1){
+                    bail("[Image-Server] ERROR: Obtaining new Socket Despcritor.");
+                        return;
+                }else
+                        naegling_log("[Image-Server] Server has got connected.");
+
+                /*Receive File from Client */
+                FILE *fp = fopen(file_path, "ab");
+                if(fp == NULL)
+                        naegling_log("[Image-Server] File Cannot be opened file on server.");
+                else{
+                        bzero(buff, TCP_MESSAGE_MAX_SIZE);
+                        block_sz = 0;
+                        while((block_sz = recv(nsock, buff,TCP_MESSAGE_MAX_SIZE,MSG_WAITALL)) > 0){
+                            int write_sz = fwrite(buff, sizeof(char), block_sz, fp);
+                                if(write_sz < block_sz){
+                                        bail("[Image-Server] File write failed on server.");
+                                }
+                                bzero(buff, TCP_MESSAGE_MAX_SIZE);
+                                if (block_sz == 0 || block_sz != 512){
+                                        break;
+                                }
+                        }
+                        if(block_sz < 0){
+                                if (errno == EAGAIN){
+                                        naegling_log("[Image-Server] recv() timed out.");
+                                }else{
+                                        bail("[Image-Server] recv() failed.");
+                                        return;
+                                }
+                        }
+                        naegling_log("[Image-Server] Ok received from client!");
+                        fflush(fp);
+                        fclose(fp);
+                }
+
+            close(nsock);
+            naegling_log("[Image-Server] Connection with Client closed. Server will wait now...");
+        }
+        close(sock);
+	FILE_TRANSFER_AVAILABLE=1;
+}
+
+
+void *job_file_transfer(void *arg){
+	char *ip=(char *)arg;
+	struct sockaddr_in addr_cluster;
+	int len_inet_cluster;
+	int sock_cluster;
+        int sock;
+        int nsock;
+        int num;
+        int sin_size;
+        struct sockaddr_in addr_local; /* client addr */
+        struct sockaddr_in addr_remote; /* server addr */
+        char buff[TCP_MESSAGE_MAX_SIZE]; // Receiver buffer
+
+        /* Get the Socket file descriptor */
+        if((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1 ){
+                bail("job_file_transfer: ERROR: Failed to obtain Socket Descriptor.");
+                return;
+        }else
+                naegling_log("job_file_transfer: Obtaining socket descriptor successfully.");
+
+        /* Fill the client socket address struct */
+        addr_local.sin_family = AF_INET; // Protocol Family
+        addr_local.sin_port = htons(NAEGLING_FILE_TRANSFER_PORT); // Port number
+        addr_local.sin_addr.s_addr = INADDR_ANY; // AutoFill local address
+        bzero(&(addr_local.sin_zero), 8); // Flush the rest of struct
+
+        /* Bind a special Port */
+        if( bind(sock, (struct sockaddr*)&addr_local, sizeof(struct sockaddr)) == -1 ){
+                bail("job_file_transfer: ERROR: Failed to bind Port.");
+                return;
+        }else
+                naegling_log("job_file_transfer: Binded tcp port sucessfully.");
+
+        /* Listen remote connect/calling */
+        if(listen(sock,SOMAXCONN) == -1){
+                bail("job_file_transfer: ERROR: Failed to listen Port.");
+                return;
+        }
+        else
+                naegling_log("job_file_transfer: Listening the port successfully.");
+
+        int success = 0;
+        int block_sz=TCP_MESSAGE_MAX_SIZE;
+        while(success == 0 && block_sz==TCP_MESSAGE_MAX_SIZE){
+                sin_size = sizeof(struct sockaddr_in);
+
+                /* Wait a connection, and obtain a new socket file despriptor for single connection */
+                if ((nsock = accept(sock, (struct sockaddr *)&addr_remote, &sin_size)) == -1){
+			bail("job_file_transfer: ERROR: Obtaining new Socket Despcritor.");
+                        return;
+                }else{
+                        naegling_log("job_file_transfer: Server has got connected.");
+		}
+
+                /*Receive File from Client */
+                bzero(buff, TCP_MESSAGE_MAX_SIZE);
+                block_sz = 0;
+                while((block_sz = recv(nsock, buff,TCP_MESSAGE_MAX_SIZE,MSG_WAITALL)) > 0){
+			sock_cluster=socket(PF_INET,SOCK_STREAM,0);
+		        if(sock_cluster==-1){
+		                bail("job_file_transfer: Error acquiring socket");
+		                return;
+		        }
+		        memset(&addr_cluster,0,sizeof addr_cluster);
+		        addr_cluster.sin_family=AF_INET;
+		        addr_cluster.sin_port=htons(NAEGLING_CLUSTER_FILE_TRANSFER_PORT);
+		        addr_cluster.sin_addr.s_addr=inet_addr(ip);
+		        if(addr_cluster.sin_addr.s_addr==INADDR_NONE){
+		                bail("job_file_transfer: Bad address.");
+		                return;
+		        }
+			len_inet_cluster=sizeof(addr_cluster);
+			int z=connect(sock_cluster,&addr_cluster,len_inet_cluster);
+			if(z==-1){
+				bail("job_file_transfer: Error on connect(2)");
+				return;
+			}
+			z=write(sock_cluster,buff,block_sz);
+			if(z==-1){
+				bail("job_file_transfer: write(2)");
+				return;
+			}
+			close(sock_cluster);
+
+                        bzero(buff, TCP_MESSAGE_MAX_SIZE);
+                        if (block_sz == 0 || block_sz != 512){
+                        	break;
+                        }
+               }
+               if(block_sz < 0){
+			if (errno == EAGAIN){
+				naegling_log("job_file_transfer: recv() timed out.");
+                        }else{
+                                bail("job_file_transfer:  recv() failed.");
+                        	return;
+                        }
+               }
+               naegling_log("job_file_transfer: Ok received from client!");
+                
+
+            close(nsock);
+            naegling_log("job_file_transfer: Connection with Client closed. Server will wait now...");
+        }
+        close(sock);
+        FILE_TRANSFER_AVAILABLE=1;
+}
+
+
+
+
+
+
+
+int send_message_to_cluster(const char *cluster_ip_addr, const char *message){
+        int retval;
+        int len_inet;
+        struct sockaddr_in addr_cluster;
+        struct sockaddr_in addr;
+        int addr_size;
+        int sock;
+        char dgram[5120];
+
+
+
+        /*creating socket address*/
+        memset(&addr_cluster,0,sizeof addr_cluster);
+        addr_cluster.sin_family = AF_INET;
+        addr_cluster.sin_port = htons(NAEGLING_SERVER_CLUSTER_PORT);
+        addr_cluster.sin_addr.s_addr =inet_addr(cluster_ip_addr);
+        if ( addr_cluster.sin_addr.s_addr == INADDR_NONE){
+                bail("bad address.");
+                return -1;
+        }
+        len_inet = sizeof addr_cluster;
+
+        /*creating UDP socket*/
+        sock=socket(AF_INET,SOCK_DGRAM,0);
+        if (sock==-1){
+                bail("socket()");
+                return -1;
+        }
+        /*sending message*/
+	char *log=(char*)malloc(sizeof(char)*1024);
+	sprintf(log,"sending message to cluster on ip:%s. Message:%s",cluster_ip_addr,message);
+	naegling_log(log);
+	free(log);
+        retval=sendto(sock,message,strlen(message),0,(struct sockaddr*)&addr_cluster,len_inet);
+        if(retval<0){
+                bail("sending message to cluster.");
+                return -1;
+        }
+
+        /*wait for answer*/
+        addr_size=sizeof(addr);
+        struct timeval tv;
+        tv.tv_sec = MAX_UDP_MESSAGE_WAIT;  //time to wait
+        tv.tv_usec = 0;
+        setsockopt(sock, SOL_SOCKET, SO_RCVTIMEO, (char *)&tv,sizeof(struct timeval));
+        retval=recvfrom(sock,dgram,sizeof dgram,0,(struct sockaddr*)&addr,&addr_size);
+        if(retval<0){
+                bail("Error receveing answer from cluster.");
+                return -1;
+        }
+        dgram[retval]='\0';
+        return atoi(dgram);
+
+}
+
+
+int get_cluster_status(const char *master_mac){
+	char *ip=get_ip_by_mac(master_mac);
+	char *message=(char *)malloc(sizeof(char)*UDP_MESSAGE_MAX_SIZE);
+	sprintf(message,"%d",GET_CLUSTER_STATUS);
+	int retval=send_message_to_cluster(ip,message);	
+	free(message);
+	free(ip);
+	return retval;
+}
+
+
+
+char * get_cluster_ip(const char *mac){
+//	int retval=-1;
+	char *ip=get_cluster_ip_by_mac(mac);
+	//char *domain=get_cluster_domain_by_mac(mac);
+	//char *vir_naegling_ip=get_ip_by_domain(domain);
+
+	
+	//if(ip&&domain&&vir_naegling_ip){
+	//	char *message=(char *)malloc(sizeof(char)*UDP_MESSAGE_MAX_SIZE);
+	///	sprintf(message,"%d%s%s",START_NEW_CLUSTER,MESSAGE_DELIMITER,ip);
+        //	retval=send_message_to_cluster(vir_naegling_ip,message);
+//
+//		free(message);
+//		        free(ip);
+//		        free(domain);
+//		        free(vir_naegling_ip);
+
+//	}else{
+//		if(ip)
+//			free(ip);
+//		if(domain)
+//			free(domain);
+//		if(vir_naegling_ip)
+//			free(vir_naegling_ip);
+//	}
+
+
+	return ip;
+}
+
+
+int add_working_node(const char *domain,const char *mac,const char *master_domain, const char *master_hypervisor,const char *master_mac){
+	int retval=-1;
+	char *message=(char *)malloc(sizeof(char)*UDP_MESSAGE_MAX_SIZE);
+	sprintf(message,"%d%s%s%s%s",ADD_WORKING_NODE,MESSAGE_DELIMITER,domain,MESSAGE_DELIMITER,mac);
+	//char *ip=get_ip_by_domain(master_domain);
+	char *ip=get_virNaegling_ip(master_domain,master_hypervisor,master_mac);
+	
+	if(ip!=NULL){
+		retval=send_message_to_cluster(ip,message);
+		free(ip);
+	}
+	free(message);
+	return retval;
+}
+
+
+int remove_working_node(const char *domain,const char *master_domain, const char *master_hypervisor,const char *master_mac){
+        int retval=-1;
+        char *message=(char *)malloc(sizeof(char)*UDP_MESSAGE_MAX_SIZE);
+        sprintf(message,"%d%s%s",REMOVE_WORKING_NODE,MESSAGE_DELIMITER,domain);
+//        char *ip=get_ip_by_domain(master_domain);
+	char *ip=get_virNaegling_ip(master_domain,master_hypervisor,master_mac);
+        if(ip!=NULL){
+                retval=send_message_to_cluster(ip,message);
+                free(ip);
+        }
+        free(message);
+        return retval;
+}
+
+int run_job_script(char * master_domain, char *job_name, char *script_name){
+	int retval=-1;
+	char *message=(char *)malloc(sizeof(char)*UDP_MESSAGE_MAX_SIZE);
+	sprintf(message,"%d%s%s%s%s",EXECUTE_JOB,MESSAGE_DELIMITER,job_name,MESSAGE_DELIMITER,script_name);
+	char *ip=get_ip_by_domain(master_domain);
+	if(ip!=NULL){
+		retval=send_message_to_cluster(ip,message);
+                free(ip);
+	}
+	free(message);
+	return retval;
+}
+
+int download_job_file(char * master_domain, char *job_name, char *file_name,struct sockaddr_in client){
+        int retval=-1;
+        char *message=(char *)malloc(sizeof(char)*UDP_MESSAGE_MAX_SIZE);
+        sprintf(message,"%d%s%s%s%s",DOWNLOAD_JOB_FILE,MESSAGE_DELIMITER,job_name,MESSAGE_DELIMITER,file_name);
+        char *ip=get_ip_by_domain(master_domain);
+        if(ip!=NULL){
+                retval=send_message_to_cluster(ip,message);
+                free(ip);
+        }
+        free(message);
+	
+
+	/*ok to transfer*/
+	if(!retval){
+        	pthread_t tid;
+        	pthread_create(&tid,NULL,server_gui_job_file_transfer,(void*)inet_ntoa(client.sin_addr));
+	}
+
+        return retval;
+}
+
+
+
+void *server_gui_job_file_transfer(void *arg){
+	char *ip=(char *)arg;
+	struct sockaddr_in addr_cluster;
+	int len_inet_cluster;
+	int sock_cluster;
+        int sock;
+        int nsock;
+        int num;
+        int sin_size;
+        struct sockaddr_in addr_local; /* client addr */
+        struct sockaddr_in addr_remote; /* server addr */
+        char buff[TCP_MESSAGE_MAX_SIZE]; // Receiver buffer
+
+        /* Get the Socket file descriptor */
+        if((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1 ){
+                bail("job_file_transfer: ERROR: Failed to obtain Socket Descriptor.");
+                return;
+        }else
+                naegling_log("job_file_transfer: Obtaining socket descriptor successfully.");
+
+        /* Fill the client socket address struct */
+        addr_local.sin_family = AF_INET; // Protocol Family
+        addr_local.sin_port = htons(9293); // Port number
+        addr_local.sin_addr.s_addr = INADDR_ANY; // AutoFill local address
+        bzero(&(addr_local.sin_zero), 8); // Flush the rest of struct
+
+        /* Bind a special Port */
+        if( bind(sock, (struct sockaddr*)&addr_local, sizeof(struct sockaddr)) == -1 ){
+                bail("job_file_transfer: ERROR: Failed to bind Port.");
+                return;
+        }else
+                naegling_log("job_file_transfer: Binded tcp port sucessfully.");
+
+        /* Listen remote connect/calling */
+        if(listen(sock,SOMAXCONN) == -1){
+                bail("job_file_transfer: ERROR: Failed to listen Port.");
+                return;
+        }
+        else
+                naegling_log("job_file_transfer: Listening the port successfully.");
+
+        sin_size = sizeof(struct sockaddr_in);
+
+        /* Wait a connection, and obtain a new socket file despriptor for single connection */
+        if ((nsock = accept(sock, (struct sockaddr *)&addr_remote, &sin_size)) == -1){
+		bail("job_file_transfer: ERROR: Obtaining new Socket Despcritor.");
+                return;
+        }else{
+                naegling_log("job_file_transfer: Server has got connected.");
+	}
+
+        /*Receive File from Client */
+        bzero(buff, TCP_MESSAGE_MAX_SIZE);
+        int block_sz = 0;
+        if((block_sz = recv(nsock, buff,TCP_MESSAGE_MAX_SIZE,MSG_WAITALL)) > 0){
+		sock_cluster=socket(PF_INET,SOCK_STREAM,0);
+		if(sock_cluster==-1){
+			bail("job_file_transfer: Error acquiring socket");
+			return;
+		}
+		memset(&addr_cluster,0,sizeof addr_cluster);
+		addr_cluster.sin_family=AF_INET;
+		addr_cluster.sin_port=htons(9294);
+		addr_cluster.sin_addr.s_addr=inet_addr(ip);
+		if(addr_cluster.sin_addr.s_addr==INADDR_NONE){
+			bail("job_file_transfer: Bad address.");
+		        return;
+		}
+		len_inet_cluster=sizeof(addr_cluster);
+		int z=connect(sock_cluster,&addr_cluster,len_inet_cluster);
+		if(z==-1){
+			bail("job_file_transfer: Error on connect(2)");
+			return;
+		}
+		z=write(sock_cluster,buff,block_sz);
+		if(z==-1){
+			bail("job_file_transfer: write(2)");
+			return;
+		}
+		close(sock_cluster);
+
+	}else{
+        	bail("job_file_transfer:  recv() failed.");
+                return;
+        }
+        naegling_log("job_file_transfer: Ok received from client!");
+                
+
+        close(nsock);
+        naegling_log("job_file_transfer: Connection with Client closed. Server will wait now...");
+        
+        close(sock);
+        FILE_TRANSFER_AVAILABLE=1;
+}
+
+

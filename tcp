@@ -1,0 +1,207 @@
+17:03:16.261626 IP ccd82.lncc.br.ssh > 146.134.234.218.39429: Flags [P.], seq 4110955199:4110955439, ack 413643973, win 148, options [nop,nop,TS val 303815037 ecr 5658041], length 240
+17:03:16.261874 IP 146.134.234.218.39429 > ccd82.lncc.br.ssh: Flags [.], ack 240, win 661, options [nop,nop,TS val 5658081 ecr 303815037], length 0
+17:03:16.262350 IP ccd82.lncc.br.52549 > view.lncc.br.domain: 5405+ PTR? 218.234.134.146.in-addr.arpa. (46)
+17:03:16.262815 IP view.lncc.br.domain > ccd82.lncc.br.52549: 5405 NXDomain* 0/1/0 (101)
+17:03:16.263010 IP ccd82.lncc.br.44257 > view.lncc.br.domain: 30689+ PTR? 82.234.134.146.in-addr.arpa. (45)
+17:03:16.263468 IP view.lncc.br.domain > ccd82.lncc.br.44257: 30689* 1/2/2 (156)
+17:03:16.263726 IP ccd82.lncc.br.52256 > view.lncc.br.domain: 46232+ PTR? 160.8.134.146.in-addr.arpa. (44)
+17:03:16.264223 IP view.lncc.br.domain > ccd82.lncc.br.52256: 46232* 1/2/2 (149)
+17:03:16.407077 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:16.808268 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:4e (oui Unknown), length 548
+17:03:16.808583 IP ccd82.lncc.br.40717 > view.lncc.br.domain: 59773+ PTR? 255.255.255.255.in-addr.arpa. (46)
+17:03:16.808978 IP view.lncc.br.domain > ccd82.lncc.br.40717: 59773* 0/1/0 (81)
+17:03:16.809086 IP ccd82.lncc.br.41655 > view.lncc.br.domain: 10472+ PTR? 0.0.0.0.in-addr.arpa. (38)
+17:03:16.809542 IP view.lncc.br.domain > ccd82.lncc.br.41655: 10472 NXDomain* 0/1/0 (88)
+17:03:17.614172 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:9d:14:5c (oui Unknown), length 548
+17:03:17.906363 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:48 (oui Unknown), length 548
+17:03:18.406366 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:19.179030 ARP, Request who-has 146.134.234.254 tell ccd07.lncc.br, length 46
+17:03:19.179274 IP ccd82.lncc.br.57967 > view.lncc.br.domain: 33209+ PTR? 254.234.134.146.in-addr.arpa. (46)
+17:03:19.179731 IP view.lncc.br.domain > ccd82.lncc.br.57967: 33209 NXDomain* 0/1/0 (101)
+17:03:19.179850 IP ccd82.lncc.br.38031 > view.lncc.br.domain: 47457+ PTR? 7.234.134.146.in-addr.arpa. (44)
+17:03:19.180322 IP view.lncc.br.domain > ccd82.lncc.br.38031: 47457* 1/2/2 (155)
+17:03:19.868361 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:4e (oui Unknown), length 548
+17:03:20.340078 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:a0:a6 (oui Unknown), length 548
+17:03:20.405653 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:20.676491 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:9d:14:5c (oui Unknown), length 548
+17:03:20.975579 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:48 (oui Unknown), length 548
+17:03:21.065182 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [S], seq 3397456743, win 14600, options [mss 1460,sackOK,TS val 5659282 ecr 0,nop,wscale 6], length 0
+17:03:21.065230 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [S.], seq 3890752786, ack 3397456744, win 5792, options [mss 1460,sackOK,TS val 303815517 ecr 5659282,nop,wscale 7], length 0
+17:03:21.065311 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 0
+17:03:21.066220 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 1:1449, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066253 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 1449:2897, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066264 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 2897:4345, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066274 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [P.], seq 4345:5793, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066281 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 1449, win 68, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066300 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 2897, win 91, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066314 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 4345, win 114, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066327 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 5793, win 136, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066456 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 5793:7241, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066481 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 7241, win 159, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066491 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 7241:8689, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066505 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 8689, win 181, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066511 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 8689:10137, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066525 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 10137, win 204, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066531 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [P.], seq 10137:11585, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066543 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 11585, win 227, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066549 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 11585:13033, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066564 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 13033, win 249, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066570 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 13033:14481, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066583 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [.], ack 14481, win 272, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066590 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 14481:15929, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066602 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R.], seq 1, ack 14481, win 272, options [nop,nop,TS val 303815517 ecr 5659282], length 0
+17:03:21.066618 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066625 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [P.], seq 15929:17377, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066639 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066647 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 17377:18825, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066661 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066667 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 18825:20273, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066680 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066687 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 20273:21721, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066697 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066702 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 21721:23169, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066712 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066717 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 23169:24617, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066726 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066731 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 24617:26065, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066740 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066744 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 26065:27513, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066754 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066758 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 27513:28961, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066768 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066773 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [P.], seq 28961:30409, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066782 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066787 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 30409:31857, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066796 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066801 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 31857:33305, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066811 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066816 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 33305:34753, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066825 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066830 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 34753:36201, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066838 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066844 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 36201:37649, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066852 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.066857 IP 146.134.234.218.45548 > ccd82.lncc.br.9190: Flags [.], seq 37649:39097, ack 1, win 229, options [nop,nop,TS val 5659282 ecr 303815517], length 1448
+17:03:21.066866 IP ccd82.lncc.br.9190 > 146.134.234.218.45548: Flags [R], seq 3890752787, win 0, length 0
+17:03:21.788107 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:51 (oui Unknown), length 548
+17:03:22.050785 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:ae (oui Unknown), length 548
+17:03:22.405037 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:23.319793 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:1e:c1:01:cc:e0 (oui Unknown), length 284
+17:03:23.400523 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:a0:a6 (oui Unknown), length 548
+17:03:23.624985 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:f9:df (oui Unknown), length 548
+17:03:23.744415 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:9d:14:5c (oui Unknown), length 548
+17:03:24.171462 ARP, Request who-has 146.134.234.254 tell ccd82.lncc.br, length 28
+17:03:24.171639 ARP, Reply 146.134.234.254 is-at c8:9c:1d:ba:6d:81 (oui Unknown), length 46
+17:03:24.404423 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:24.848166 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:51 (oui Unknown), length 548
+17:03:25.120869 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:ae (oui Unknown), length 548
+17:03:25.317290 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:fa:50 (oui Unknown), length 548
+17:03:26.403723 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:26.460592 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:a0:a6 (oui Unknown), length 548
+17:03:26.684958 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:f9:df (oui Unknown), length 548
+17:03:27.020164 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:fa:75 (oui Unknown), length 548
+17:03:27.139963 IP 146.134.234.218.17500 > 255.255.255.255.17500: UDP, length 123
+17:03:27.141138 IP 146.134.234.218.17500 > 146.134.234.255.17500: UDP, length 123
+17:03:27.141333 IP ccd82.lncc.br.35525 > view.lncc.br.domain: 59097+ PTR? 255.234.134.146.in-addr.arpa. (46)
+17:03:27.141792 IP view.lncc.br.domain > ccd82.lncc.br.35525: 59097 NXDomain* 0/1/0 (101)
+17:03:27.419821 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [S], seq 854785015, win 14600, options [mss 1460,sackOK,TS val 5660870 ecr 0,nop,wscale 6], length 0
+17:03:27.419867 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [S.], seq 3996606020, ack 854785016, win 5792, options [mss 1460,sackOK,TS val 303816152 ecr 5660870,nop,wscale 7], length 0
+17:03:27.420031 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], ack 1, win 229, options [nop,nop,TS val 5660870 ecr 303816152], length 0
+17:03:27.421951 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 1:1449, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816152], length 1448
+17:03:27.421970 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 1449:2897, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816152], length 1448
+17:03:27.421979 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 2897:4345, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816152], length 1448
+17:03:27.421987 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [P.], seq 4345:5793, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816152], length 1448
+17:03:27.422056 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 1449, win 68, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422078 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 2897, win 91, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422097 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 4345, win 114, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422113 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 5793, win 136, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422260 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 5793:7241, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422286 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 7241, win 159, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422292 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 7241:8689, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422302 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 8689, win 181, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422308 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 8689:10137, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422319 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 10137, win 204, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422324 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [P.], seq 10137:11585, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422334 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 11585, win 227, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422340 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 11585:13033, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422350 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 13033, win 249, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422355 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 13033:14481, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422364 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 14481, win 272, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422369 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 14481:15929, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422379 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 15929, win 295, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422385 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [P.], seq 15929:17377, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422394 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 17377, win 317, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422399 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 17377:18825, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422409 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 18825, win 340, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422414 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 18825:20273, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422423 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 20273, win 362, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422431 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 20273:21721, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422444 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [.], ack 21721, win 385, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422557 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R.], seq 1, ack 21721, win 385, options [nop,nop,TS val 303816153 ecr 5660871], length 0
+17:03:27.422572 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 21721:23169, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422587 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422592 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 23169:24617, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422602 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422607 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 24617:26065, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422617 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422622 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 26065:27513, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422631 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422636 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 27513:28961, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422645 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422650 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [P.], seq 28961:30409, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422659 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422664 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 30409:31857, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422673 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422678 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 31857:33305, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422688 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422693 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 33305:34753, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422702 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422707 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 34753:36201, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422716 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422721 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 36201:37649, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422730 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422735 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 37649:39097, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422743 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422749 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 39097:40545, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422757 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422762 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 40545:41993, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422771 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422776 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 41993:43441, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422785 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422790 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 43441:44889, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422798 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422803 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [.], seq 44889:46337, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422812 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.422819 IP 146.134.234.218.45550 > ccd82.lncc.br.9190: Flags [P.], seq 46337:47785, ack 1, win 229, options [nop,nop,TS val 5660871 ecr 303816153], length 1448
+17:03:27.422831 IP ccd82.lncc.br.9190 > 146.134.234.218.45550: Flags [R], seq 3996606021, win 0, length 0
+17:03:27.908318 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:51 (oui Unknown), length 548
+17:03:28.181285 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:ae (oui Unknown), length 548
+17:03:28.377835 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:fa:50 (oui Unknown), length 548
+17:03:28.403051 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:29.755042 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:f9:df (oui Unknown), length 548
+17:03:30.080417 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:fa:75 (oui Unknown), length 548
+17:03:30.316712 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:50 (oui Unknown), length 548
+17:03:30.402433 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:31.437534 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:fa:50 (oui Unknown), length 548
+17:03:31.452084 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:53 (oui Unknown), length 548
+17:03:31.982591 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:fa:b1 (oui Unknown), length 548
+17:03:32.401737 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:33.140507 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:fa:75 (oui Unknown), length 548
+17:03:33.376904 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:50 (oui Unknown), length 548
+17:03:34.401095 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:34.512212 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:53 (oui Unknown), length 548
+17:03:34.626234 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:9d:14:2e (oui Unknown), length 548
+17:03:35.049892 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:fa:b1 (oui Unknown), length 548
+17:03:35.315828 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:1e:c1:01:cc:e0 (oui Unknown), length 284
+17:03:35.622764 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:91 (oui Unknown), length 548
+17:03:36.076830 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:4a (oui Unknown), length 548
+17:03:36.400445 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:36.436992 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:50 (oui Unknown), length 548
+17:03:36.685123 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:3e (oui Unknown), length 548
+17:03:37.572369 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:53 (oui Unknown), length 548
+17:03:37.686663 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:9d:14:2e (oui Unknown), length 548
+17:03:38.110341 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:d9:fa:b1 (oui Unknown), length 548
+17:03:38.399783 STP 802.1w, Rapid STP, Flags [Learn, Forward, Agreement], bridge-id 8000.00:1e:c1:01:cc:e0.8010, length 43
+17:03:38.501804 IP 0.0.0.0.bootpc > 255.255.255.255.bootps: BOOTP/DHCP, Request from 00:30:48:da:50:4f (oui Unknown), length 548
+17:03:38.602071 IP 146.134.234.218.39429 > ccd82.lncc.br.ssh: Flags [P.], seq 1:49, ack 240, win 661, options [nop,nop,TS val 5663666 ecr 303815037], length 48
+
